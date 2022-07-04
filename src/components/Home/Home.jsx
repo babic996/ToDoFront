@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'antd';
+import { Image, Button } from 'antd';
 import {Row, Col} from 'antd';
 import { Typography } from 'antd';
 import './Home.scss';
@@ -15,6 +15,9 @@ export const Home = () => {
                     <p className='description'>
                         Nam vitae imperdiet urna, non congue lacus. Phasellus efficitur suscipit arcu, quis aliquam tortor posuere eget. Mauris posuere eget.
                     </p>
+                    <div className='button'>
+                        <Button type="primary">Login</Button>
+                    </div>
                 </div>
             </Col>
             <Col span={12}><Image className='image' preview={false}

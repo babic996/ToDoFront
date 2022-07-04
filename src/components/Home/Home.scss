@@ -6,6 +6,9 @@
     .title{
         margin-top: 100px;
     }
+    .button{
+        margin-bottom: 50px;
+    }
 }
 
 @media (min-width:768px) {
@@ -16,6 +19,9 @@
     .title{
         margin-top: 100px;
     }
+    .button{
+        margin-bottom: 50px;
+    }
 }
 
 @media (min-width:992px) {
@@ -25,6 +31,9 @@
     }
     .title{
         margin-top: 100px;
+    }
+    .button{
+        margin-bottom: 50px;
     }
     
 }
@@ -37,6 +46,9 @@
     .title{
         margin-top: 100px;
     }
+    .button{
+        margin-bottom: 50px;
+    }
 }
 
 .image{
@@ -47,5 +59,8 @@
     text-align: center;
 }
 .description{
+    text-align: center;
+}
+.button{
     text-align: center;
 }
