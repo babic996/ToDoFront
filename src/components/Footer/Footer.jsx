@@ -9,7 +9,7 @@ function AppFooter() {
     <div className="container-fluid">
       <div className="footer">
         <div className="logo">
-          <a href="http://google.com">Tech</a>
+          <a href="http://google.com">ToDoList</a>
         </div>
         <ul className="socials">
           <li><a href="https://www.facebook.com/"><FacebookFilled /></a></li>
@@ -17,7 +17,7 @@ function AppFooter() {
           <li><a href="https://www.linkedin.com/"><LinkedinFilled /></a></li>
           <li><a href="https://www.instagram.com/"><InstagramFilled /></a></li>
         </ul>
-        <div className="copyright">Copyright &copy; 2020 Tech</div>
+        <div className="copyright">Copyright &copy; 2022 ToDoList</div>
         <BackTop>
           <div className="goTop"><i className="fas fa-arrow-circle-up"></i></div>
         </BackTop>
