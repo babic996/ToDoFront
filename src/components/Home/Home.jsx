@@ -16,7 +16,7 @@ export const Home = () => {
                         Nam vitae imperdiet urna, non congue lacus. Phasellus efficitur suscipit arcu, quis aliquam tortor posuere eget. Mauris posuere eget.
                     </p>
                     <div className='button'>
-                        <Button type="primary">Login</Button>
+                        <Button href='/login' type="primary">Login</Button>
                     </div>
                 </div>
             </Col>

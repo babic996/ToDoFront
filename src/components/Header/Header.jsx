@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 
 import { Anchor, Drawer, Button } from 'antd';
 
-import {MenuOutlined} from '@ant-design/icons';
+import {MenuOutlined, UserOutlined} from '@ant-design/icons';
+
+import { Avatar } from 'antd';
 
 const { Link } = Anchor;
 
@@ -22,12 +24,16 @@ function AppHeader() {
         <div className="header">
           <div className="logo">
             <i className="fas fa-bolt"></i>
-            <a href="http://google.com">Tech</a>
+            <a href="http://google.com">ToDoList</a>
           </div>
           <div className="mobileHidden">
             <Anchor targetOffset="65">
-              <Link href="#hero" title="Home" />
-              <Link href="#login" title="Login" />
+              <Link href="/" title="Home" />
+              <Link href="/login" title="Login" />
+              <Link href="/signup" title="SignUp" />
+              <Link href="/mytodolist" title="MyToDoList" />
+              <Link href="/profile" title="Profile" />
+              <Avatar size="small" icon={<UserOutlined />} />
             </Anchor>
           </div>
           <div className="mobileVisible">
@@ -41,8 +47,12 @@ function AppHeader() {
               visible={visible}
             >
               <Anchor targetOffset="65">
-                <Link href="#hero" title="Home" />
-                <Link href="#login" title="About" />
+                <Link href="/" title="Home" />
+                <Link href="/login" title="Login" />
+                <Link href="/signup" title="SignUp" />
+                <Link href="/mytodolist" title="MyToDoList" />
+                <Link href="/profile" title="Profile" />
+                <Avatar size="small" icon={<UserOutlined />} />
               </Anchor>
             </Drawer>
           </div>
