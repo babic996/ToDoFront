@@ -1,9 +1,12 @@
-import { Button, Checkbox, Form, Input, Image } from 'antd';
-import { KeyOutlined, MailFilled, GoogleOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Image } from 'antd';
+import { KeyOutlined, MailFilled, CloseCircleOutlined } from '@ant-design/icons';
+import { Anchor } from 'antd';
 import React from 'react';
 import {Row, Col} from 'antd';
 import { Card } from 'antd';
 import './SignUp.scss'
+
+const { Link } = Anchor;
 
 export const SignUp = () => {
   const onFinish = (values) => {
@@ -16,6 +19,7 @@ export const SignUp = () => {
   return (
       <Row className='main'>
         <Col span={12}>
+        <CloseCircleOutlined style={{margin: 20, color: 'white', 'font-size': 'large'}}/>
         <Image className='image_left' preview={false}
             src="/assets/img/todolist.png"
         />
