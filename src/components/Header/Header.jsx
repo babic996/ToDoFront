@@ -10,9 +10,11 @@ const { Link } = Anchor;
 
 function AppHeader() {
     const [visible, setVisible] = useState(false);
+    const [size, setSize] = useState();
   
     const showDrawer = () => {
       setVisible(true);
+      setSize('default');
     };
   
     const onClose = () => {
@@ -42,6 +44,7 @@ function AppHeader() {
             </Button>
             <Drawer
               placement="right"
+              size={size}
               closable={false}
               onClose={onClose}
               visible={visible}
