@@ -20,7 +20,7 @@ export const Login = () => {
   return (
       <Row className='main'>
         <Col span={12}>
-        <CloseCircleOutlined style={{margin: 20, color: 'white', 'font-size': 'large'}}/>
+        <Link to='/'><CloseCircleOutlined style={{margin: 20, color: 'white', 'font-size': 'large'}}/></Link>
         <Image className='image_left' preview={false}
             src="/assets/img/todolist.png"
         />

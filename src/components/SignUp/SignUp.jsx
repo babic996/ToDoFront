@@ -2,11 +2,12 @@ import { Button, Form, Input, Image } from 'antd';
 import { KeyOutlined, MailFilled, CloseCircleOutlined } from '@ant-design/icons';
 import { Anchor } from 'antd';
 import React from 'react';
+import { Link } from "react-router-dom";
 import {Row, Col} from 'antd';
 import { Card } from 'antd';
 import './SignUp.scss'
 
-const { Link } = Anchor;
+
 
 export const SignUp = () => {
   const onFinish = (values) => {
@@ -19,7 +20,7 @@ export const SignUp = () => {
   return (
       <Row className='main'>
         <Col span={12}>
-        <CloseCircleOutlined style={{margin: 20, color: 'white', 'font-size': 'large'}}/>
+        <Link to='/'><CloseCircleOutlined style={{margin: 20, color: 'white', 'font-size': 'large'}}/></Link>
         <Image className='image_left' preview={false}
             src="/assets/img/todolist.png"
         />
