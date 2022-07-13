@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Row, Col } from "antd";
-import { Image, Typography, Card } from "antd";
+import { Image, Typography, Card, Button } from "antd";
 import { UserOutlined, MailFilled, IdcardOutlined, CalendarFilled, PhoneFilled } from "@ant-design/icons";
 import "./Profile.scss";
 const { Title } = Typography;
@@ -8,8 +9,8 @@ const { Text } = Typography;
 
 export const Profile = () => {
   return (
-    <Row gutter={[16, 16]} style={{'margin-right': 16}}>
-      <Col span={8} style={{'margin-top': 90}}>
+    <Row gutter={[16, 16]} style={{'marginRight': 16}}>
+      <Col span={8} style={{'marginTop': 90}}>
         <Col span={24}>
           <div className="slika">
             <Image
@@ -21,20 +22,26 @@ export const Profile = () => {
         </Col>
         <Col span={24}>
           <div className="slika">
-            <Title id="naslov" level={3} style={{'font-weight': 'bold'}}>Aleksandar Babic</Title>
+            <Title id="naslov" level={3} style={{'fontWeight': 'bold'}}>Aleksandar Babic</Title>
+          </div>
+        </Col>
+        <Col span={24}>
+          <div className="slika">
+            <Link to="/edit-profile"><Button type="primary" style={{'marginTop': 30}}>Edit</Button></Link>
           </div>
         </Col>
       </Col>
-      <Col span={16} style={{'margin-top': 90}}>
+      <Col span={16} style={{'marginTop': 90}}>
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Card
               style={{
                 width: "100%",
-                "box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
-                "-webkit-box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
-                "-moz-box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "boxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "WebkitBoxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "MozBoxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
               }}
+              className="card"
             >
               <Row align="middle">
                 <Col span={8}>
@@ -43,17 +50,17 @@ export const Profile = () => {
                 <Col span={16} pull={5}>
                   <Row align="middle">
                     <Col span={24}>
-                      <p style={{ "font-size": "xx-small" }}>First Name</p>
+                      <p style={{ "fontSize": "xx-small" }}>First Name</p>
                     </Col>
                     <Col span={24}>
-                      <p
+                      <Title
                         style={{
-                          "font-size": "x-small",
-                          "font-weight": "bold",
+                          "fontSize": "x-small",
+                          "fontWeight": "bold",
                         }}
                       >
                         Aleksandar
-                      </p>
+                      </Title>
                     </Col>
                   </Row>
                 </Col>
@@ -64,10 +71,11 @@ export const Profile = () => {
             <Card
               style={{
                 width: "100%",
-                "box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
-                "-webkit-box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
-                "-moz-box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "boxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "WebkitBoxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "MozBoxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
               }}
+              className="card"
             >
               <Row align="middle">
                 <Col span={8}>
@@ -76,17 +84,17 @@ export const Profile = () => {
                 <Col span={16} pull={5}>
                   <Row align="middle">
                     <Col span={24}>
-                      <p style={{ "font-size": "xx-small" }}>Last Name</p>
+                      <p style={{ "fontSize": "xx-small" }}>Last Name</p>
                     </Col>
                     <Col span={24}>
-                      <p
+                      <Title
                         style={{
-                          "font-size": "x-small",
-                          "font-weight": "bold",
+                          "fontSize": "x-small",
+                          "fontWeight": "bold",
                         }}
                       >
                         Babic
-                      </p>
+                      </Title>
                     </Col>
                   </Row>
                 </Col>
@@ -97,10 +105,11 @@ export const Profile = () => {
             <Card
               style={{
                 width: "100%",
-                "box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
-                "-webkit-box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
-                "-moz-box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "boxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "WebkitBoxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "MozBoxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
               }}
+              className="card"
             >
               <Row align="middle">
                 <Col span={8}>
@@ -109,17 +118,17 @@ export const Profile = () => {
                 <Col span={16} pull={5}>
                   <Row align="middle">
                     <Col span={24}>
-                      <p style={{ "font-size": "xx-small" }}>Email</p>
+                      <p style={{ "fontSize": "xx-small" }}>Email</p>
                     </Col>
                     <Col span={24}>
-                      <p
+                      <Title
                         style={{
-                          "font-size": "x-small",
-                          "font-weight": "bold",
+                          "fontSize": "x-small",
+                          "fontWeight": "bold",
                         }}
                       >
                         aleksandar.babic996@gmail.com
-                      </p>
+                      </Title>
                     </Col>
                   </Row>
                 </Col>
@@ -130,10 +139,11 @@ export const Profile = () => {
           <Card
               style={{
                 width: "100%",
-                "box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
-                "-webkit-box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
-                "-moz-box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "boxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "WebkitBoxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "MozBoxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
               }}
+              className="card"
             >
               <Row align="middle">
                 <Col span={8}>
@@ -142,17 +152,17 @@ export const Profile = () => {
                 <Col span={16} pull={5}>
                   <Row align="middle">
                     <Col span={24}>
-                      <p style={{ "font-size": "xx-small" }}>Job Title</p>
+                      <p style={{ "fontSize": "xx-small" }}>Job Title</p>
                     </Col>
                     <Col span={24}>
-                      <p
+                      <Title
                         style={{
-                          "font-size": "x-small",
-                          "font-weight": "bold",
+                          "fontSize": "x-small",
+                          "fontWeight": "bold",
                         }}
                       >
                         Software Developer
-                      </p>
+                      </Title>
                     </Col>
                   </Row>
                 </Col>
@@ -163,10 +173,11 @@ export const Profile = () => {
             <Card
               style={{
                 width: "100%",
-                "box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
-                "-webkit-box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
-                "-moz-box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "boxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "WebkitBoxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "MozBoxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
               }}
+              className="card"
             >
               <Row align="middle">
                 <Col span={8}>
@@ -175,17 +186,17 @@ export const Profile = () => {
                 <Col span={16} pull={5}>
                   <Row align="middle">
                     <Col span={24}>
-                      <p style={{ "font-size": "xx-small" }}>Date of Birth</p>
+                      <p style={{ "fontSize": "xx-small" }}>Date of Birth</p>
                     </Col>
                     <Col span={24}>
-                      <p
+                      <Title
                         style={{
-                          "font-size": "x-small",
-                          "font-weight": "bold",
+                          "fontSize": "x-small",
+                          "fontWeight": "bold",
                         }}
                       >
                         05.05.1996.
-                      </p>
+                      </Title>
                     </Col>
                   </Row>
                 </Col>
@@ -196,10 +207,11 @@ export const Profile = () => {
             <Card
               style={{
                 width: "100%",
-                "box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
-                "-webkit-box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
-                "-moz-box-shadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "boxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "WebkitBoxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
+                "MozBoxShadow": "4px -1px 9px 0px rgba(128,128,128,0.75)",
               }}
+              className="card"
             >
               <Row align="middle">
                 <Col span={8}>
@@ -208,17 +220,17 @@ export const Profile = () => {
                 <Col span={16} pull={5}>
                   <Row align="middle">
                     <Col span={24}>
-                      <p style={{ "font-size": "xx-small" }}>Phone</p>
+                      <p style={{ "fontSize": "xx-small" }}>Phone</p>
                     </Col>
                     <Col span={24}>
-                      <p
+                      <Title
                         style={{
-                          "font-size": "x-small",
-                          "font-weight": "bold",
+                          "fontSize": "x-small",
+                          "fontWeight": "bold",
                         }}
                       >
                         065/291-794
-                      </p>
+                      </Title>
                     </Col>
                   </Row>
                 </Col>

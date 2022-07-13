@@ -1,6 +1,5 @@
-import { Button, Form, Input, Image } from 'antd';
-import { KeyOutlined, MailFilled, CloseCircleOutlined } from '@ant-design/icons';
-import { Anchor } from 'antd';
+import { Button, Form, Input, Image, InputNumber } from 'antd';
+import { KeyOutlined, MailFilled, CloseCircleOutlined, UserOutlined, FieldNumberOutlined } from '@ant-design/icons';
 import React from 'react';
 import { Link } from "react-router-dom";
 import {Row, Col} from 'antd';
@@ -20,17 +19,21 @@ export const SignUp = () => {
   return (
       <Row className='main'>
         <Col span={12}>
-        <Link to='/'><CloseCircleOutlined style={{margin: 20, color: 'white', 'font-size': 'large'}}/></Link>
-        <Image className='image_left' preview={false}
+        <Row>
+        <Link to='/'><CloseCircleOutlined style={{margin: 20, color: 'white', 'fontSize': '30px'}}/></Link>
+        </Row>
+        <Row>
+        <Image className='image_left' preview={false} style={{width: '80%', height: '80%'}}
             src="/assets/img/todolist.png"
         />
+        </Row>
         </Col>
-        <Col span={12}>
+        <Col span={12} xs={24} sm={24} md={12} style={{padding: 20}}>
           <Card className='card' title="Welcome ToDoList" style={{
-          margin: 20,
-          'border-radius': 10,
-          height: '90%',
-          }}>
+          'borderRadius': 10,
+          height: '100%',
+          }}
+          >
             <Form
               name="basic"
               labelCol={{
@@ -47,19 +50,49 @@ export const SignUp = () => {
               autoComplete="off"
             >
               <Form.Item
-                name="email"
+                name="name"
+                className='inputShadow'
                 rules={[
                   {
                     required: true,
+                    message: 'Please input your name!',
+                  },
+                ]}
+              >
+                <Input size="large" placeholder='Name' prefix={<UserOutlined />}/>
+              </Form.Item>
+
+              <Form.Item
+                name="email"
+                className='inputShadow'
+                rules={[
+                  {
+                    required: true,
+                    type: 'email',
                     message: 'Please input your email!',
                   },
                 ]}
               >
-                <Input placeholder='Email' prefix={<MailFilled />}/>
+                <Input size="large" placeholder='Email' prefix={<MailFilled />}/>
+              </Form.Item>
+
+              <Form.Item
+                name="age"
+                className='inputShadow'
+                rules={[
+                  {
+                    required: true,
+                    type: 'number',
+                    message: 'Please input your age!',
+                  },
+                ]}
+              >
+                <InputNumber size="large" prefix={<FieldNumberOutlined />} placeholder='Age' style={{width: '100%'}} min={1} max={100} />
               </Form.Item>
 
               <Form.Item
                 name="password"
+                className='inputShadow'
                 rules={[
                   {
                     required: true,
@@ -67,11 +100,12 @@ export const SignUp = () => {
                   },
                 ]}
               >
-                <Input.Password placeholder='Password' prefix={<KeyOutlined />}/>
+                <Input.Password size="large" placeholder='Password' prefix={<KeyOutlined />}/>
               </Form.Item>
 
               <Form.Item
-                name="repate-password"
+                name="repeat-password"
+                className='inputShadow'
                 rules={[
                   {
                     required: true,
@@ -79,7 +113,7 @@ export const SignUp = () => {
                   },
                 ]}
               >
-                <Input.Password  placeholder='Repate Password' prefix={<KeyOutlined />}/>
+                <Input.Password size="large"  placeholder='Repeat Password' prefix={<KeyOutlined />}/>
               </Form.Item>
 
               <Form.Item
