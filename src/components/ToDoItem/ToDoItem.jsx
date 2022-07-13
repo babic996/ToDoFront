@@ -1,7 +1,6 @@
 import React from "react";
-import { Tooltip, Tag, List, Button, Popconfirm, Switch, Col, Row } from "antd";
+import {  Tag, List, Button, Popconfirm, Switch, Col, Row } from "antd";
 import {
-  CloseOutlined,
   CheckOutlined,
   DeleteOutlined,
   MinusOutlined,
@@ -11,22 +10,24 @@ import "./ToDoItem.scss";
 
 export const ToDoItem = ({ item }) => {
   const [checked, setChecked] = useState(false);
+
+  const text="sdajkkdajsakdjsakdjsakdjadkadsakd";
   return (
     <List.Item
-      extra={
+      extra={[
         <Popconfirm
           title="Are you sure you want to delete?"
           onConfirm={() => {
             console.log("DELETE ITEM");
           }}
         >
-          <Button className="remove-todo-button" type="text" danger>
+          <Button className="button" type="text" danger>
             <DeleteOutlined />
           </Button>
-        </Popconfirm>
-      }
+        </Popconfirm>,
+        <Button className="button" type="primary">Edit</Button>,
+      ]}
       className="list-item"
-      key={1}
     >
       <Row>
         <Col span={1}>
@@ -35,20 +36,20 @@ export const ToDoItem = ({ item }) => {
             defaultChecked={checked}
           />
         </Col>
-        <Col span={1}>
+        <Col span={1} className="col">
           {checked ? (
-            <Tag color="green" className="todo-tag">
+            <Tag color="green" id="todo-tag" className="todo-tag">
               <CheckOutlined />
             </Tag>
           ) : (
-            <Tag color="red" className="todo-tag">
+            <Tag color="red" id="todo-tag" className="todo-tag">
               <MinusOutlined />
             </Tag>
           )}
         </Col>
-        <Col>
-          {checked ? <p style={{'textDecoration': 'line-through'}}>sdasda</p> : <p>sdasda</p>}
-        </Col>
+          <Col span={2} className="col">
+            {checked ? <p className="list" style={{'textDecoration': 'line-through'}}>{item.title.substring(0,5)}...</p> : <p className="list">{item.title.substring(0,5)}...</p>}
+          </Col>
       </Row>
     </List.Item>
   );

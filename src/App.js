@@ -1,19 +1,21 @@
 import './App.scss';
+import { useState, useEffect } from 'react';
 import { Home } from './components/Home/Home';
 import AppHeader from './components/Header/Header'
 import AppFooter from './components/Footer/Footer'
+import { EditProfile } from './components/EditProfile/EditProfile'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Login } from './components/Login/Login';
 import { SignUp } from './components/SignUp/SignUp';
 import { Profile } from './components/Profile/Profile';
 import { ToDoList } from './components/ToDoList/ToDoList';
-
 import 'antd/dist/antd.css';
-
 import { Layout } from 'antd';
+
 const { Header, Content, Footer } = Layout;
 
 function App() {
+ 
   return (
     <Router>
       <Routes>
@@ -55,6 +57,7 @@ function App() {
         />
         <Route path='/login' element={<Login />}/>
         <Route path='/signup' element={<SignUp />}/>
+        <Route path='/edit-profile' element={<EditProfile />}/>
       </Routes>
     </Router>
   );

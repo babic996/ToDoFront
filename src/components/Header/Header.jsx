@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 
 import { Anchor, Drawer, Button } from 'antd';
 
-import {MenuOutlined, UserOutlined} from '@ant-design/icons';
+import {MenuOutlined } from '@ant-design/icons';
 
-import { Avatar } from 'antd';
 
 const { Link } = Anchor;
 
@@ -20,6 +19,7 @@ function AppHeader() {
     const onClose = () => {
       setVisible(false);
     };
+
   
     return (
       <div className="container-fluid">
@@ -31,11 +31,10 @@ function AppHeader() {
           <div className="mobileHidden">
             <Anchor targetOffset="65">
               <Link href="/" title="Home" />
-              <Link href="/login" title="Login" />
+              <Link href="/login" title="Login" /> 
               <Link href="/signup" title="SignUp" />
               <Link href="/mytodolist" title="MyToDoList" />
               <Link href="/profile" title="Profile" />
-              <Avatar size="small" icon={<UserOutlined />} />
             </Anchor>
           </div>
           <div className="mobileVisible">
@@ -51,11 +50,10 @@ function AppHeader() {
             >
               <Anchor targetOffset="65">
                 <Link href="/" title="Home" />
-                <Link href="/login" title="Login" />
+                <Link href="/login" title="Login" /> 
                 <Link href="/signup" title="SignUp" />
                 <Link href="/mytodolist" title="MyToDoList" />
                 <Link href="/profile" title="Profile" />
-                <Avatar size="small" icon={<UserOutlined />} />
               </Anchor>
             </Drawer>
           </div>

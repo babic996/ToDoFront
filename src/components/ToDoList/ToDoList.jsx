@@ -1,18 +1,21 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { Row, Col } from "antd";
 import { Input, Button, Card, Divider, List } from "antd";
 import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { ToDoItem } from "../ToDoItem/ToDoItem";
+import useAxiosFetch from "../../hooks/useAxiosFetch"
 
-const data = [
-  "Racing car sprays burning fuel into crowd.",
-  "Japanese princess to wed commoner.",
-  "Australian walks 100km after outback crash.",
-  "Man charged over missing wedding girl.",
-  "Los Angeles battles huge wildfires.",
-];
+
 
 export const ToDoList = () => {
+  const [list, setList] = useState ([]);
+  const { data, fetchError, isLoading } = useAxiosFetch('https://jsonplaceholder.typicode.com/todos');
+
+  useEffect (() => {
+    setList(data);
+  }, [data])
+
   return (
     <div>
       <Row gutter={[48, 16]}>
@@ -41,12 +44,14 @@ export const ToDoList = () => {
             "marginTop": 50,
           }}
         >
+          {isLoading && <p>Loading my list...</p>}
+          {!isLoading && fetchError && <p>{fetchError}</p>}
           <List
             className="demo-loadmore-list"
             itemLayout="vertical"
-            dataSource={data}
+            dataSource={list} //ovdje proslijedjujem niz podataka koje primam
             renderItem={(item) => (
-              <ToDoItem item={item}/>
+              <ToDoItem key={item.id} item={item}/>
             )}
           />
         </Card>
