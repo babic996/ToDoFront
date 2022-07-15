@@ -13,13 +13,14 @@ import { Divider, Checkbox } from "antd";
 import React from "react";
 import { Row, Col } from "antd";
 import { Card } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 
 export const Login = () => {
-  const [loginData, setLoginData] = useState({});
+  //const [loginData, setLoginData] = useState({});
   const {mutate, data, isSuccess, isError, isLoading} = useAuthentication();
   const { storeToken, clearToken } = useAuth();
+  const navigate = useNavigate();
 
   
   const onSubmit = (loginValues) => {
@@ -27,46 +28,23 @@ export const Login = () => {
     mutate(loginValues);
   }
 
-
-  /*const onFinish = (values) => {
-    //setLoginData(values);
-    //mutate(data);
-    console.log(data);
-  };
-  */
-
    //initial clear
    useEffect(() => {
     clearToken();
   }, [])
 
   useUpdateEffect(() => {
-    console.log()
     if (data?.data){
       console.log(data.data)
       storeToken(data.data.token);
-      //navigate("/");
+      navigate("/");
     }
   }, [data])
-  /*
-  useEffect(() => {
-    if (loginData.email) {
-      axios
-        .post("https://api-nodejs-todolist.herokuapp.com/user/login", {
-          email: loginData.email,
-          password: loginData.password,
-        })
-        .then((response) => console.log(response.data)); //ako funkcije nije async koristimo then a inace koristimo promise(then)
-    }
-  }, [loginData]);
-  */
+  
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
-  //const navigate = useNavigate();
-  
 
   return (
     <Row className="main">

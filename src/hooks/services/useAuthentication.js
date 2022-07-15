@@ -10,4 +10,3 @@ const Authenticate = (data) => {
     const request = useRequest();
     return request({ url: '/user/login', method: 'post', data: data });
 }
-

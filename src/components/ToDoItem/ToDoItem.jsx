@@ -48,7 +48,7 @@ export const ToDoItem = ({ item }) => {
           )}
         </Col>
           <Col span={2} className="col">
-            {checked ? <p className="list" style={{'textDecoration': 'line-through'}}>{item.title.substring(0,5)}...</p> : <p className="list">{item.title.substring(0,5)}...</p>}
+            {checked ? <p className="list" style={{'textDecoration': 'line-through'}}>{item.description}...</p> : <p className="list">{item.description}...</p>}
           </Col>
       </Row>
     </List.Item>

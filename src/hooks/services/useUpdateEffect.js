@@ -12,5 +12,3 @@ export default function useUpdateEffect(callback, dependencies) {
     return callback();
   }, dependencies);
 }
-
-

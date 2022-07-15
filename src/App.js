@@ -6,6 +6,7 @@ import AppFooter from './components/Footer/Footer'
 import { EditProfile } from './components/EditProfile/EditProfile'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { Login } from './components/Login/Login';
 import { SignUp } from './components/SignUp/SignUp';
 import { Profile } from './components/Profile/Profile';
@@ -47,17 +48,16 @@ function App() {
               </Layout>}>
             </Route>
             <Route path='/profile' element={
-              <Layout className="mainLayout">
+              <PrivateRoute><Layout className="mainLayout">
                 <Header>
                   <AppHeader/>
                 </Header>
                 <Content>
                   <Profile />
                 </Content>
-              </Layout>} 
+              </Layout></PrivateRoute>} 
             />
-            <Route path='/mytodolist' element={
-              <Layout className="mainLayout">
+            <Route path='/mytodolist' element={<PrivateRoute><Layout className="mainLayout">
                 <Header>
                   <AppHeader/>
                 </Header>
@@ -67,7 +67,8 @@ function App() {
                 <Footer>
                   <AppFooter />
                 </Footer>
-              </Layout>} 
+              </Layout></PrivateRoute>
+              } 
             />
             <Route path='/login' element={<Login />}/>
             <Route path='/signup' element={<SignUp />}/>
