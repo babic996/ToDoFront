@@ -1,5 +1,8 @@
 import { Button, Form, Input, Image } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/contexts/AuthProvider";
+import { useAuthentication } from "../../hooks/services/useAuthentication";
+import useUpdateEffect from "../../hooks/services/useUpdateEffect";
+import { useState, useEffect } from "react";
 import {
   KeyOutlined,
   MailFilled,
@@ -14,15 +17,56 @@ import { Link } from "react-router-dom";
 import "./Login.scss";
 
 export const Login = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const [loginData, setLoginData] = useState({});
+  const {mutate, data, isSuccess, isError, isLoading} = useAuthentication();
+  const { storeToken, clearToken } = useAuth();
+
+  
+  const onSubmit = (loginValues) => {
+    console.log(loginValues)
+    mutate(loginValues);
+  }
+
+
+  /*const onFinish = (values) => {
+    //setLoginData(values);
+    //mutate(data);
+    console.log(data);
   };
+  */
+
+   //initial clear
+   useEffect(() => {
+    clearToken();
+  }, [])
+
+  useUpdateEffect(() => {
+    console.log()
+    if (data?.data){
+      console.log(data.data)
+      storeToken(data.data.token);
+      //navigate("/");
+    }
+  }, [data])
+  /*
+  useEffect(() => {
+    if (loginData.email) {
+      axios
+        .post("https://api-nodejs-todolist.herokuapp.com/user/login", {
+          email: loginData.email,
+          password: loginData.password,
+        })
+        .then((response) => console.log(response.data)); //ako funkcije nije async koristimo then a inace koristimo promise(then)
+    }
+  }, [loginData]);
+  */
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
+  
 
   return (
     <Row className="main">
@@ -44,7 +88,7 @@ export const Login = () => {
           className="card"
           title="Welcome ToDoList"
           style={{
-            "borderRadius": 10,
+            borderRadius: 10,
             height: "100%",
           }}
         >
@@ -59,7 +103,7 @@ export const Login = () => {
             initialValues={{
               remember: true,
             }}
-            onFinish={onFinish}
+            onFinish={onSubmit}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
@@ -80,13 +124,13 @@ export const Login = () => {
                 {
                   required: true,
                   message: "Please input your email!",
-                  type: 'email'
+                  type: "email",
                 },
               ]}
             >
               <Input size="large" placeholder="Email" prefix={<MailFilled />} />
             </Form.Item>
-      
+
             <Form.Item
               name="password"
               className="inputShadow"
@@ -104,7 +148,7 @@ export const Login = () => {
               />
             </Form.Item>
 
-            <Form.Item>
+            {/* <Form.Item>
               <Form.Item name="remember" valuePropName="checked" noStyle>
                 <Checkbox>Remember me</Checkbox>
               </Form.Item>
@@ -112,14 +156,14 @@ export const Login = () => {
               <a className="login-form-forgot" href="">
                 Forgot password?
               </a>
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item>
               <Button id="button" type="primary" htmlType="submit">
                 LOGIN
               </Button>
             </Form.Item>
             <Form.Item>
-              <div style={{ "textAlign": "center" }}>
+              <div style={{ textAlign: "center" }}>
                 Don't have an account? <Link to="/signup">Register</Link>
               </div>
             </Form.Item>
