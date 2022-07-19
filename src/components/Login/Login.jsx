@@ -21,6 +21,7 @@ export const Login = () => {
   const {mutate, data, isSuccess, isError, isLoading} = useAuthentication();
   const { storeToken, clearToken } = useAuth();
   const navigate = useNavigate();
+  
 
   
   const onSubmit = (loginValues) => {
@@ -33,11 +34,11 @@ export const Login = () => {
     clearToken();
   }, [])
 
-  useUpdateEffect(() => {
+  useUpdateEffect(() => { //response na request login (vraca nam token i storamo ga u localstorage)
     if (data?.data){
       console.log(data.data)
       storeToken(data.data.token);
-      navigate("/");
+      navigate("/mytodolist");
     }
   }, [data])
   

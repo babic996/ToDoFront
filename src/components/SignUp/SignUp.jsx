@@ -1,7 +1,9 @@
 import { Button, Form, Input, Image, InputNumber } from 'antd';
 import { KeyOutlined, MailFilled, CloseCircleOutlined, UserOutlined, FieldNumberOutlined } from '@ant-design/icons';
+import { useRegisterUser } from "../../hooks/services/useAuthentication";
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useUpdateEffect from "../../hooks/services/useUpdateEffect";
 import {Row, Col} from 'antd';
 import { Card } from 'antd';
 import './SignUp.scss'
@@ -9,9 +11,20 @@ import './SignUp.scss'
 
 
 export const SignUp = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
+  const {mutate, data, isSuccess, isError, isLoading} = useRegisterUser();
+  const navigate = useNavigate();
+
+  const onFinish = (registerValues) => {
+    //console.log('Success:', values);
+    mutate({"name": registerValues.name, "email": registerValues.email, "password": registerValues.password, "age": registerValues.age});
   };
+
+  useUpdateEffect(() => { //response na request login (vraca nam token i storamo ga u localstorage)
+    if (data?.data){
+      console.log(data.data)
+      navigate("/login");
+    }
+  }, [data])
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -99,18 +112,29 @@ export const SignUp = () => {
                     message: 'Please input your password!',
                   },
                 ]}
+                hasFeedback
               >
                 <Input.Password size="large" placeholder='Password' prefix={<KeyOutlined />}/>
               </Form.Item>
 
               <Form.Item
-                name="repeat-password"
+                name="confirm"
                 className='inputShadow'
+                dependencies={['password']}
+                hasFeedback
                 rules={[
                   {
                     required: true,
-                    message: 'Please input your password!',
+                    message: 'Please confirm your password!',
                   },
+                  ({getFieldValue})=>({
+                    validator(_,value) {
+                      if(!value || getFieldValue('password')===value){
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                    },
+                  }),
                 ]}
               >
                 <Input.Password size="large"  placeholder='Repeat Password' prefix={<KeyOutlined />}/>

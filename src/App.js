@@ -11,6 +11,7 @@ import { Login } from './components/Login/Login';
 import { SignUp } from './components/SignUp/SignUp';
 import { Profile } from './components/Profile/Profile';
 import { ToDoList } from './components/ToDoList/ToDoList';
+import { ToDoItem } from './components/ToDoItem/ToDoItem';
 import 'antd/dist/antd.css';
 import { Layout } from 'antd';
 
@@ -70,9 +71,10 @@ function App() {
               </Layout></PrivateRoute>
               } 
             />
+      
             <Route path='/login' element={<Login />}/>
             <Route path='/signup' element={<SignUp />}/>
-            <Route path='/edit-profile' element={<EditProfile />}/>
+            <Route path='/edit-profile' element={<PrivateRoute><EditProfile /></PrivateRoute>}/>
           </Routes>
         </Router>
       </AuthProvider>
