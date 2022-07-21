@@ -66,9 +66,6 @@ function App() {
                 <Content>
                   <ToDoList />
                 </Content>
-                <Footer>
-                  <AppFooter />
-                </Footer>
               </Layout></PrivateRoute>
               } 
             />
