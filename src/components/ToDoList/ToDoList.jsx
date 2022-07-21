@@ -2,63 +2,74 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Row, Col } from "antd";
 import { Input, Button, Card, List, Form, Spin, Pagination } from "antd";
-import { PlusCircleOutlined, SearchOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import { ToDoItem } from "../ToDoItem/ToDoItem";
 import { useTasks } from "../../hooks/services/useTasks";
 import { useAddTask } from "../../hooks/services/useTasks";
 import useUpdateEffect from "../../hooks/services/useUpdateEffect";
+import { Field } from "rc-field-form";
 
 export const ToDoList = () => {
   const { data: tasks } = useTasks();
+  const [form] = Form.useForm();
   const [list, setList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1)
+  const pageSize = 3;
+  const [currentPage, setCurrentPage] = useState(1);
+  //const [totalPage, setTotalPage] = useState(0);
+  const [minIndex, setMinIndex] = useState(0);
+  const [maxIndex, setMaxIndex] = useState(0);
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const { mutate, data, isSuccess, isError, isLoading } = useAddTask();
 
-  
   useEffect(() => {
     setList(tasks);
-    console.log(list);
-  }, [tasks]);
-  
+    setSearchResult(tasks);
+    //searchResult?.length==0 ? setTotalPage(tasks?.length) : setTotalPage(searchResult?.length)h
+    //setTotalPage(tasks?.length)
+    setMinIndex(0);
+    setMaxIndex(pageSize);
+  }, [tasks, list]);
 
 
   const onSubmitForm = (values) => {
     console.log('Success:', values);
     mutate({"description": values.addToDo})
+    form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
-  useUpdateEffect(() => { //response na request login (vraca nam token i storamo ga u localstorage)
-    if (data?.data){
+  /*
+  useUpdateEffect(() => { //response na request 
       console.log(data.data)
       //navigate("/login");
     }
-  }, [data])
+  }, [data])*/
 
+  const handleChange = (page) => {
+    setCurrentPage(page);
+    setMinIndex((page-1)*pageSize);
+    setMaxIndex(page*pageSize);
+  }
 
   
   useEffect(()=>{
-    if(!list)
-    {
-      setSearchResult(tasks);
-    }
-    else
-    {
-      const filteredResults = list.filter((item)=>
-      ((item.description).toLowerCase()).includes(search.toLowerCase()));
-      setSearchResult(filteredResults.reverse());
-    }
-  }, [list, search])
+    const filteredResults = list?.filter((item)=>
+    ((item.description).toLowerCase()).includes(search.toLowerCase()));
+    setSearchResult(filteredResults.reverse());
+    //setTotalPage(searchResult?.length);
+  }, [search])
+
+  
 
   return (
     <div>
       <Spin spinning={isLoading} size='large'>
-      <Form 
+      <Form
+        form={form} 
         onFinish={onSubmitForm}
         onFinishFailed={onFinishFailed}
       >
@@ -84,7 +95,7 @@ export const ToDoList = () => {
         </Row>
         <Row gutter={[40, 16]}>
           <Col span={15} offset={1}>
-              <Input prefix={<SearchOutlined />} value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="Search" />
+              <Input value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="Search" />
           </Col>
         </Row>
       </Form>
@@ -101,12 +112,17 @@ export const ToDoList = () => {
             className="demo-loadmore-list"
             itemLayout="vertical"
             dataSource={searchResult} //ovdje proslijedjujem niz podataka koje primam
-            renderItem={(item) => (
+            renderItem={(item, index) => 
+              index >= minIndex &&
+              index < maxIndex &&
+              (
               <ToDoItem rowKey={item._id} item={item} /> //todo:
             )}
           />
-          {/* <Pagination current={currentPage} total={list.length} pageSize={3} onChange={(page)=>{setCurrentPage(page);}} /> */}
         </Card>
+        <Row justify="center" style={{marginTop: 10}}>
+          <Pagination current={currentPage} total={searchResult?.length} pageSize={pageSize} onChange={handleChange}/>
+        </Row>
       </Col>
       </Spin>
     </div>
