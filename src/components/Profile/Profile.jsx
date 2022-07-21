@@ -2,12 +2,30 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Row, Col } from "antd";
 import { Image, Typography, Card, Button } from "antd";
+import { useLoggedInUser } from "../../hooks/services/useTasks";
+import useUpdateEffect from "../../hooks/services/useUpdateEffect";
 import { UserOutlined, MailFilled, IdcardOutlined, CalendarFilled, PhoneFilled } from "@ant-design/icons";
 import "./Profile.scss";
+import { useState } from "react";
 const { Title } = Typography;
 const { Text } = Typography;
 
 export const Profile = () => {
+
+  const { data } = useLoggedInUser();
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [email, setEmail] = useState("");
+
+  useUpdateEffect(() => { //response na request login (vraca nam token i storamo ga u localstorage)
+    if (data){
+      console.log(data)
+      setName(data.name);
+      setEmail(data.email);
+      setAge(data.age);
+      //navigate("/login");
+    }
+  }, [data])
   return (
     <Row gutter={[16, 16]} style={{'marginRight': 16}}>
       <Col span={8} style={{'marginTop': 90}}>
@@ -22,7 +40,7 @@ export const Profile = () => {
         </Col>
         <Col span={24}>
           <div className="slika">
-            <Title id="naslov" level={3} style={{'fontWeight': 'bold'}}>Aleksandar Babic</Title>
+            <Title id="naslov" level={3} style={{'fontWeight': 'bold'}}>{name} {name}</Title>
           </div>
         </Col>
         <Col span={24}>
@@ -59,7 +77,7 @@ export const Profile = () => {
                           "fontWeight": "bold",
                         }}
                       >
-                        Aleksandar
+                        {name}
                       </Title>
                     </Col>
                   </Row>
@@ -93,7 +111,7 @@ export const Profile = () => {
                           "fontWeight": "bold",
                         }}
                       >
-                        Babic
+                        {name}
                       </Title>
                     </Col>
                   </Row>
@@ -127,7 +145,7 @@ export const Profile = () => {
                           "fontWeight": "bold",
                         }}
                       >
-                        aleksandar.babic996@gmail.com
+                        {email}
                       </Title>
                     </Col>
                   </Row>
@@ -195,7 +213,7 @@ export const Profile = () => {
                           "fontWeight": "bold",
                         }}
                       >
-                        05.05.1996.
+                        {age}
                       </Title>
                     </Col>
                   </Row>
