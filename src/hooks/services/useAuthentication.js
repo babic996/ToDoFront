@@ -11,6 +11,17 @@ export const useRegisterUser = () => {
     return useMutation(RegisterUser);
 }
 
+export const usePutUser = () => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        PutUser,
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries('users');
+            }
+        });
+}
+
 const Authenticate = (data) => {
     const request = useRequest();
     return request({ url: '/user/login', method: 'post', data: data });
@@ -21,7 +32,9 @@ const RegisterUser = (data) => {
 
     return request({ url: '/user/register', method: 'post', data: data })
 }
-
-const LogoutUser = (data) => {
+ 
+const PutUser = (data) => {
     const request = useRequest();
+    console.log(data);
+    return request({ url: '/user/me', method: 'put', data: data})
 }

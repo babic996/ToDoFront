@@ -29,8 +29,8 @@ export const ToDoItem = ({ item }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [checked, setChecked] = useState(item.completed)
   const { mutate, data, isSuccess, isError, isLoading } = useDeleteTask();
-  const { mutate: mutatePutCompleted, data: dataPutCompleted } = useUpdateTaskCompleted();
-  const { mutate: mutatePutDescription, data: dataPutDescription } = useUpdateTaskDescription();
+  const { mutate: mutatePutCompleted, data: dataPutCompleted, isLoading: isLoadingCompleted } = useUpdateTaskCompleted();
+  const { mutate: mutatePutDescription, data: dataPutDescription, isLoading: isLoadingDescription } = useUpdateTaskDescription();
   const [updateDescription, setUpdateDescription] = useState('');
 
   const showEdit = () => {
@@ -69,7 +69,7 @@ export const ToDoItem = ({ item }) => {
   }, [data, dataPutDescription, dataPutCompleted]);
 
   return (
-    <Spin spinning={isLoading} size="large">
+    <Spin spinning={isLoading || isLoadingCompleted || isLoadingDescription} size="large">
       <List.Item
         extra={[
           <Popconfirm

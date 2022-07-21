@@ -7,7 +7,7 @@ export const useTasks = () => {
     return useQuery(
         ['tasks'],
         async () => GetTasks()
-    );
+    )
 }
 
 export const useLoggedInUser = () => {
@@ -64,7 +64,7 @@ export const useAddTask = () => {
 const GetTasks = async () => {
     const request = useRequest();
 
-    var result = await request({ url: '/task', method: 'get' })
+    var result = await request({ url: `/task`, method: 'get' })
     console.log(result.data.data)
     return result.data.data;
 }

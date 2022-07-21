@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Row, Col } from "antd";
-import { Input, Button, Card, List, Form, Spin } from "antd";
-import { PlusCircleOutlined } from "@ant-design/icons";
+import { Input, Button, Card, List, Form, Spin, Pagination } from "antd";
+import { PlusCircleOutlined, SearchOutlined } from "@ant-design/icons";
 import { ToDoItem } from "../ToDoItem/ToDoItem";
 import { useTasks } from "../../hooks/services/useTasks";
 import { useAddTask } from "../../hooks/services/useTasks";
@@ -11,7 +11,18 @@ import useUpdateEffect from "../../hooks/services/useUpdateEffect";
 export const ToDoList = () => {
   const { data: tasks } = useTasks();
   const [list, setList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
   const { mutate, data, isSuccess, isError, isLoading } = useAddTask();
+
+  
+  useEffect(() => {
+    setList(tasks);
+    console.log(list);
+  }, [tasks]);
+  
+
 
   const onSubmitForm = (values) => {
     console.log('Success:', values);
@@ -29,10 +40,20 @@ export const ToDoList = () => {
     }
   }, [data])
 
-  useEffect(() => {
-    setList(tasks);
-    console.log(list);
-  }, [tasks]);
+
+  
+  useEffect(()=>{
+    if(!list)
+    {
+      setSearchResult(tasks);
+    }
+    else
+    {
+      const filteredResults = list.filter((item)=>
+      ((item.description).toLowerCase()).includes(search.toLowerCase()));
+      setSearchResult(filteredResults.reverse());
+    }
+  }, [list, search])
 
   return (
     <div>
@@ -61,6 +82,11 @@ export const ToDoList = () => {
             </Form.Item>
           </Col>
         </Row>
+        <Row gutter={[40, 16]}>
+          <Col span={15} offset={1}>
+              <Input prefix={<SearchOutlined />} value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="Search" />
+          </Col>
+        </Row>
       </Form>
       <Col span={22} push={1} style={{ marginBottom: 20 }}>
         <Card
@@ -71,16 +97,15 @@ export const ToDoList = () => {
             marginTop: 50,
           }}
         >
-          {/* {isLoading && <p>Loading my list...</p>}
-          {!isLoading && fetchError && <p>{fetchError}</p>} */}
           <List
             className="demo-loadmore-list"
             itemLayout="vertical"
-            dataSource={list} //ovdje proslijedjujem niz podataka koje primam
+            dataSource={searchResult} //ovdje proslijedjujem niz podataka koje primam
             renderItem={(item) => (
               <ToDoItem rowKey={item._id} item={item} /> //todo:
             )}
           />
+          {/* <Pagination current={currentPage} total={list.length} pageSize={3} onChange={(page)=>{setCurrentPage(page);}} /> */}
         </Card>
       </Col>
       </Spin>

@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLoggedInUser } from "../../hooks/services/useTasks";
 import useUpdateEffect from "../../hooks/services/useUpdateEffect";
 import { Row, Col } from "antd";
 import { useState } from "react";
+import { usePutUser } from "../../hooks/services/useAuthentication";
 import { Image, Typography, Button, Input, DatePicker, Form } from "antd";
 import {
   UserOutlined,
@@ -15,14 +16,20 @@ import {
 } from "@ant-design/icons";
 const { Title } = Typography;
 
+
 export const EditProfile = () => {
   const { data } = useLoggedInUser();
   const [firstName, setFirstName] = useState("");
   const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
+  const {mutate, data: dataUser} = usePutUser();
+  const navigate = useNavigate();
 
   const onSubmitForm = (values) => {
+    const formInput={"name": values.name, "email": values.email, "age": values.age, "password": values.password}
     console.log(values);
+    console.log(formInput);
+    mutate(formInput);
   };
 
   useUpdateEffect(() => {
@@ -35,6 +42,14 @@ export const EditProfile = () => {
       //navigate("/login");
     }
   }, [data]);
+
+  useUpdateEffect(() => {
+    //response na request login (vraca nam token i storamo ga u localstorage)
+    if (dataUser?.data) {
+      console.log(dataUser.data);
+      //navigate("/");
+    }
+  }, [dataUser]);
   return (
     <Row gutter={[16, 16]} style={{ marginRight: 16 }}>
       <Col span={8} style={{ marginTop: 90 }}>
@@ -50,7 +65,7 @@ export const EditProfile = () => {
         <Col span={24}>
           <div className="slika">
             <Title id="naslov" level={3} style={{ fontWeight: "bold" }}>
-              Aleksandar Babic
+              {firstName}
             </Title>
           </div>
         </Col>
@@ -69,7 +84,7 @@ export const EditProfile = () => {
                     </Col>
                     <Col span={24}>
                       <Form.Item name="name">
-                        <Input value={firstName} />
+                        <Input value={firstName} placeholder={firstName} />
                       </Form.Item>
                     </Col>
                   </Row>
@@ -103,7 +118,7 @@ export const EditProfile = () => {
                     </Col>
                     <Col span={24}>
                       <Form.Item name="email">
-                        <Input value={email} />
+                        <Input placeholder={email} value={email} />
                       </Form.Item>
                     </Col>
                   </Row>
@@ -136,7 +151,9 @@ export const EditProfile = () => {
                       </p>
                     </Col>
                     <Col span={24}>
-                      <DatePicker style={{ width: "100%" }} />
+                      <Form.Item name="age">
+                        <Input placeholder={age} />
+                      </Form.Item>
                     </Col>
                   </Row>
                 </Col>
@@ -168,7 +185,9 @@ export const EditProfile = () => {
                       </p>
                     </Col>
                     <Col span={24}>
-                      <Input.Password />
+                      <Form.Item name="password" hasFeedback>
+                        <Input.Password />
+                      </Form.Item>
                     </Col>
                   </Row>
                 </Col>
@@ -184,18 +203,49 @@ export const EditProfile = () => {
                       </p>
                     </Col>
                     <Col span={24}>
-                      <Input.Password />
+                      <Form.Item name="confirm" dependencies={['password']} hasFeedback
+                      rules={[
+                        ({getFieldValue})=>({
+                          validator(_,value) {
+                            if(!value || getFieldValue('password')===value){
+                              return Promise.resolve();
+                            }
+                            return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                          },
+                        })
+                      ]}>
+                        <Input.Password />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={12}>
+              <Row align="middle">
+                <Col span={24} pull={5}>
+                  <Row align="middle">
+                    <Col span={24} push={10}>
+                      <Button type="primary" onClick={() => navigate(-1)}>Back</Button>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={12}>
+              <Row align="middle">
+                <Col span={24} pull={5}>
+                  <Row align="middle">
+                    <Col span={24} push={10}>
+                      <Form.Item>
+                        <Button type="primary" htmlType="submit">Submit</Button>
+                      </Form.Item>
                     </Col>
                   </Row>
                 </Col>
               </Row>
             </Col>
           </Row>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Save
-            </Button>
-          </Form.Item>
         </Form>
       </Col>
     </Row>

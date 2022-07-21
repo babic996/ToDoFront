@@ -1,6 +1,7 @@
 import './App.scss';
 import { AuthProvider } from './hooks/contexts/AuthProvider';
 import { Home } from './components/Home/Home';
+import { Logout } from './components/Logout/Logout';
 import AppHeader from './components/Header/Header'
 import AppFooter from './components/Footer/Footer'
 import { EditProfile } from './components/EditProfile/EditProfile'
@@ -75,6 +76,7 @@ function App() {
             <Route path='/login' element={<Login />}/>
             <Route path='/signup' element={<SignUp />}/>
             <Route path='/edit-profile' element={<PrivateRoute><EditProfile /></PrivateRoute>}/>
+            <Route path='/logout' element={<PrivateRoute><Logout /></PrivateRoute>}/>
           </Routes>
         </Router>
       </AuthProvider>

@@ -107,7 +107,7 @@ export const Login = () => {
                 },
               ]}
             >
-              <Input size="large" placeholder="Email" prefix={<MailFilled />} />
+              <Input size="large"  placeholder="Email" prefix={<MailFilled />} />
             </Form.Item>
 
             <Form.Item
