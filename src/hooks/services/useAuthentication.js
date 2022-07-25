@@ -11,6 +11,11 @@ export const useRegisterUser = () => {
     return useMutation(RegisterUser);
 }
 
+export const useAddImage = () => {
+    //const queryClient = useQueryClient();
+    return useMutation(AddImage);
+}
+
 export const usePutUser = () => {
     const queryClient = useQueryClient();
     return useMutation(
@@ -37,4 +42,10 @@ const PutUser = (data) => {
     const request = useRequest();
     console.log(data);
     return request({ url: '/user/me', method: 'put', data: data})
+}
+
+const AddImage = (data) => {
+    const request = useRequest();
+
+    return request({ url: '/user/me/avatar', method: 'post', data: data })
 }

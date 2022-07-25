@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Anchor, Drawer, Button } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
+import './Header.scss'
 const { Link } = Anchor;
 
 function AppHeader() {

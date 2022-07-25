@@ -82,52 +82,22 @@ function App() {
 }
 
 
-{/* <Router>
-      <Layout className="mainLayout">
-            <Header>
-              <AppHeader/>
-            </Header>
-            <Content>
-              <Routes>
-                <Route path='/' element={<Home />} />
-              </Routes>
-            </Content>
-            <Footer>
-              <AppFooter />
-            </Footer>
-      </Layout>
-    </Router> */}
-
-    {/* <Router>
-      <Routes>
-        <Route path='/' element={
-          <Layout className="mainLayout">
-              <Header>
-                <AppHeader/>
-              </Header>
-              <Content>
-                <Home />
-              </Content>
-              <Footer>
-                <AppFooter />
-              </Footer>
-          </Layout>}>
-        </Route>
-        <Route path='/profile' element={
+{/* <AuthProvider>
+        <Router>
           <Layout className="mainLayout">
             <Header>
-              <AppHeader/>
+              <AppHeader />
             </Header>
-            <Content>
-              <Profile />
-            </Content>
-            <Footer>
-              <AppFooter />
-            </Footer>
-          </Layout>} />
-        <Route path='/login' element={<Login />}/>
-      </Routes>
-    </Router> */}
+          </Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path='/login' element={<Login />}/>
+          </Routes>
+          <Footer>
+            <AppFooter />
+          </Footer>
+        </Router>
+      </AuthProvider> */}
 
 
 export default App;

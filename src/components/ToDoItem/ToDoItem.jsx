@@ -11,7 +11,8 @@ import {
   Spin,
   Modal,
   Form,
-  Input
+  Input,
+  notification
 } from "antd";
 import {
   CheckOutlined,
@@ -23,6 +24,7 @@ import "./ToDoItem.scss";
 import { useDeleteTask } from "../../hooks/services/useTasks";
 import { useUpdateTaskCompleted } from "../../hooks/services/useTasks";
 import { useUpdateTaskDescription } from "../../hooks/services/useTasks";
+import { useEffect } from "react";
 
 
 export const ToDoItem = ({ item }) => {
@@ -33,6 +35,22 @@ export const ToDoItem = ({ item }) => {
   const { mutate: mutatePutDescription, data: dataPutDescription, isLoading: isLoadingDescription } = useUpdateTaskDescription();
   const [updateDescription, setUpdateDescription] = useState('');
 
+  const openNotificationDelete = (placement) => {
+    notification.info({
+      description:
+        'Uspjesno ste izbrisali obavezu!',
+      placement,
+    });
+  };
+
+  const openNotificationUpdate = (placement) => {
+    notification.info({
+      description:
+        'Uspjesno ste promjenili obavezu!',
+      placement,
+    });
+  };
+
   const showEdit = () => {
     setIsModalVisible(true);
   };
@@ -42,6 +60,7 @@ export const ToDoItem = ({ item }) => {
     console.log(updateDescription);
     mutatePutDescription({"description": updateDescription, "id": item._id});
     setUpdateDescription('');
+    openNotificationUpdate('top');
   };
 
   const handleCancel = () => {
@@ -76,6 +95,7 @@ export const ToDoItem = ({ item }) => {
             title="Are you sure you want to delete?"
             onConfirm={() => {
               mutate(item._id);
+              openNotificationDelete('top');
             }}
           >
             <Button className="button" type="text" danger>
@@ -130,8 +150,8 @@ export const ToDoItem = ({ item }) => {
           <Col span={1}>
             <Switch
               onChange={() =>{
-                mutatePutCompleted({"completed": !checked, "id": item._id})}}
-                defaultChecked={checked}
+                mutatePutCompleted({"completed": !item.completed, "id": item._id})}}
+                defaultChecked={item.completed}
             />
           </Col>
           <Col span={1} className="col">
