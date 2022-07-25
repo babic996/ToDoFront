@@ -1,4 +1,4 @@
-import { Button, Form, Input, Image } from "antd";
+import { Button, Form, Input, Image, notification, message } from "antd";
 import { useAuth } from "../../hooks/contexts/AuthProvider";
 import { useAuthentication } from "../../hooks/services/useAuthentication";
 import useUpdateEffect from "../../hooks/services/useUpdateEffect";
@@ -17,6 +17,14 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 
 export const Login = () => {
+
+  const openNotification = (placement) => {
+    notification.info({
+      description:
+        'Uspjesno ste se prijavili!',
+      placement,
+    });
+  };
   //const [loginData, setLoginData] = useState({});
   const {mutate, data, isSuccess, isError, isLoading} = useAuthentication();
   const { storeToken, clearToken } = useAuth();
@@ -39,12 +47,14 @@ export const Login = () => {
       console.log(data.data)
       storeToken(data.data.token);
       navigate("/mytodolist");
+      openNotification('top')
     }
   }, [data])
   
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+   
   };
 
   return (

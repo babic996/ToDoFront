@@ -4,7 +4,7 @@ import { useRegisterUser } from "../../hooks/services/useAuthentication";
 import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import useUpdateEffect from "../../hooks/services/useUpdateEffect";
-import {Row, Col} from 'antd';
+import {Row, Col, notification} from 'antd';
 import { Card } from 'antd';
 import './SignUp.scss'
 
@@ -13,6 +13,14 @@ import './SignUp.scss'
 export const SignUp = () => {
   const {mutate, data, isSuccess, isError, isLoading} = useRegisterUser();
   const navigate = useNavigate();
+
+  const openNotification = (placement) => {
+    notification.info({
+      description:
+        'Uspjesno ste se registrovali. Molimo Vas da se prijavite!',
+      placement,
+    });
+  };
 
   const onFinish = (registerValues) => {
     //console.log('Success:', values);
@@ -23,6 +31,7 @@ export const SignUp = () => {
     if (data?.data){
       console.log(data.data)
       navigate("/login");
+      openNotification('top');
     }
   }, [data])
 

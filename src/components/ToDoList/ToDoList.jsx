@@ -1,13 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Row, Col } from "antd";
-import { Input, Button, Card, List, Form, Spin, Pagination } from "antd";
+import { Input, Button, Card, List, Form, Spin, Pagination, notification } from "antd";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { ToDoItem } from "../ToDoItem/ToDoItem";
 import { useTasks } from "../../hooks/services/useTasks";
 import { useAddTask } from "../../hooks/services/useTasks";
 import useUpdateEffect from "../../hooks/services/useUpdateEffect";
-import { Field } from "rc-field-form";
+
 
 export const ToDoList = () => {
   const { data: tasks } = useTasks();
@@ -21,6 +21,15 @@ export const ToDoList = () => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const { mutate, data, isSuccess, isError, isLoading } = useAddTask();
+
+  const openNotificationAdd = (placement) => {
+    notification.info({
+      description:
+        'Uspjesno ste se dodali obavezu!',
+      placement,
+    });
+  };
+ 
 
   useEffect(() => {
     setList(tasks);
@@ -36,6 +45,7 @@ export const ToDoList = () => {
     console.log('Success:', values);
     mutate({"description": values.addToDo})
     form.resetFields();
+    openNotificationAdd('top')
   };
 
   const onFinishFailed = (errorInfo) => {
